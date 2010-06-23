@@ -16,9 +16,7 @@
 	"256": "icon256.png",
 	"512": "icon512.png"
   },
-  "permissions": [
-    //"notifications"
-  ],
+  "permissions": [],
   "default locale": "en",
   "options_page": "options.html"
 }
