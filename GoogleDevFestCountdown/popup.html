@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+.toolstrip-button
+{
+    width:200px;
+}
+</style>
+</head>
+<body>
+<div class="toolstrip-button">
+    <span id="popupText"></span>
+</div>
+<script language="javascript">
+function change()
+{
+	var bgPage = chrome.extension.getBackgroundPage();
+	bgPage.updateTime();
+	document.getElementById("popupText").innerHTML = localStorage["countdownText"];
+
+ /*
+//notification
+// Create a simple text notification
+var notification = webkitNotifications.createNotification(
+'icon48.png',  // icon url - can be relative
+'Google DevFest Countdown',  // notification title
+popupTextElement.innerHTML  // notification body text
+);
+
+// Then show the notification.
+notification.show();
+ */
+ 
+}
+change(); 
+    
+</script>
+</body>
+</html>

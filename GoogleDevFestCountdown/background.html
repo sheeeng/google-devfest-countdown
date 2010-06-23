@@ -1,0 +1,40 @@
+<html>
+<head>
+<script type="text/javascript">
+function updateTime()
+{
+	var defaultCountdownDate = new Date("July 16,2010 00:08:30");
+	var defaultCity = "kuala_lumpur";
+
+	var favCity = localStorage["favCity"];
+	var favDate = new Date("July 16,2010 00:08:30");
+
+	var today = new Date();
+	var days_value = Math.floor((favDate-today)/(24*60*60*1000));
+	var hours_value = Math.floor(((favDate-today)%(24*60*60*1000))/(60*60*1000));
+	var minutes_value = Math.floor(((favDate-today)%(24*60*60*1000))/(60*1000))%60;
+	var seconds_value = Math.floor(((favDate-today)%(24*60*60*1000))/1000)%60%60;
+
+	if((favDate - today) > 0)
+	{
+		titleElement = "Google DevFest coming in " + days_value + " days, " + hours_value + " hours, " + minutes_value + " minutes, " + seconds_value + " seconds.";
+	}
+	else
+	{
+		titleElement = "Google DevFest has come!";
+	}
+	localStorage["countdownText"] = titleElement;
+	chrome.browserAction.setTitle({title:titleElement});
+}
+
+function updateClock()
+{
+	updateTime();
+	setTimeout(updateClock,10000);
+}
+</script>
+</head>
+<body onload="updateClock()">
+</body>
+</html>
+

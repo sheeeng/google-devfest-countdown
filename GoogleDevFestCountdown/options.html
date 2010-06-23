@@ -1,0 +1,189 @@
+<html>
+<head>
+<title>Google DevFest Countdown Options</title>
+<style>
+body {
+  font-family:helvetica, arial, sans-serif;
+  font-size:80%;
+  margin:10px;
+}
+
+#header {
+  padding-bottom:1.5em;
+  padding-top:1.5em;
+}
+
+#header h1 {
+  font-size: 150%;
+  display:inline;
+  padding-bottom:43px;
+  padding-left:75px;
+  padding-top:40px;
+  background:url(icon128.png) no-repeat;
+  background-size:67px;
+  background-position:1px 18px;
+}
+
+.section-header {
+  background:#ebeff9;
+  border-top:1px solid #b5c7de;;
+  font-size:99%;
+  padding:3px 0 2px 5px;
+  font-weight:bold;
+  margin-bottom:1em;
+  margin-top:4em;
+}
+
+.section-header.first {
+  margin-top:1em;
+}
+
+.rounded_buttton{
+  margin:1px;
+  border-style: solid;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.rounded_buttton:enabled{
+	background-color: #C1EAAC;
+ 	color: #000;
+}
+
+.rounded_buttton:disabled{
+	background-color: #B0C4DE;
+ 	color:#FFF;
+} 
+
+#footer {
+  margin-top:4em;
+}
+
+span.left {
+position: absolute;
+left: 10;
+}
+
+span.right {
+position: absolute;
+right: 10;
+}
+
+#saveStatus
+{
+margin-top:4px;
+float: left; 
+display:none;
+padding-bottom: 2px;
+padding-left: 7px;
+padding-right: 7px;
+padding-top: 2px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+background-color: #FFF1A8;
+color:#000;
+}
+
+</style>
+
+</head>
+<body onload="loadOptions()">
+<div id="header">
+	<h1 class="left">Google DevFest Countdown Options</h1>
+	<!-- <span class="right" id="feedback"><a href="mail:" target="_blank">Feedback</a></span> -->
+</div>
+
+<div class="section-header first">Options</div>
+<p>Going to which Google DevFest city?<p>
+Select City:
+<select id="cityComboBox" onchange="return markDirty()">
+	<option value="manila">Manila, Philippines</option>
+	<option value="singapore">Singapore, Singapore</option>
+	<option value="kuala_lumpur">Kuala Lumpur, Malaysia</option>
+</select>
+<div id="footer">
+	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions()">Save</button>
+	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions()">Cancel</button>
+	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions()">Restore default</button>
+</div>
+<div id="saveStatus" >Options saved. Options take effect automatically within ten seconds.</div>
+
+<script type="text/javascript">
+var saveButton;
+var saveStatus;
+var defaultCity;
+ 
+function init()
+{
+	saveButton = document.getElementById("buttonSave");
+	saveStatus = document.getElementById("saveStatus");
+	defaultCity = "kuala_lumpur";
+}
+
+// Restores select box state to saved value from localStorage.
+function loadOptions()
+{
+	init();
+	var favCity = localStorage["favCity"];
+
+	// valid colors are red, blue, green and yellow
+	if (favCity == undefined || (favCity != "manila" && favCity != "singapore" && favCity != "kuala_lumpur"))
+	{
+		favCity = defaultCity;
+	}
+
+	var selectedCity = document.getElementById("cityComboBox");
+	for (var i = 0; i < selectedCity.children.length; i++)
+	{
+		var child = selectedCity.children[i];
+		if (child.value == favCity)
+		{
+			child.selected = "true";
+			break;
+		}
+	}
+	markClean();
+	hideStuff("saveStatus");
+}
+
+// Saves options to localStorage.
+function saveOptions()
+{
+	var select = document.getElementById("cityComboBox");
+	var cityIndex = select.children[select.selectedIndex].value;
+	localStorage["favCity"] = cityIndex;
+	markClean();
+	//window.close();
+}
+
+function eraseOptions()
+{
+	localStorage.removeItem("favCity");
+	location.reload();
+	markClean();
+}
+
+function markDirty()
+{
+  saveButton.disabled = false;
+  hideStuff("saveStatus");
+}
+
+function markClean()
+{
+  saveButton.disabled = true;
+  showStuff("saveStatus");
+}
+
+function showStuff(id)
+{
+	document.getElementById(id).style.display = 'block';
+}
+
+function hideStuff(id)
+{
+	document.getElementById(id).style.display = 'none';
+}
+</script>
+</body>
+</html>

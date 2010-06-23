@@ -1,0 +1,24 @@
+{
+  "name": "Google DevFest Countdown",
+  "version": "1.0.0.0",
+  "description": "Countdown to Google DevFest!",
+  "background_page": "background.html",
+  "browser_action": {
+    "default_icon": "icon32.png",
+    "popup": "popup.html"
+  },
+  "icons": {
+	"16": "icon16.png",
+	"24": "icon24.png",
+	"32": "icon32.png",
+	"48": "icon48.png",
+	"128": "icon128.png",
+	"256": "icon256.png",
+	"512": "icon512.png"
+  },
+  "permissions": [
+    //"notifications"
+  ],
+  "default locale": "en",
+  "options_page": "options.html"
+}
