@@ -90,46 +90,88 @@ color:#000;
 <body onload="loadOptions()">
 <div id="header">
 	<h1 class="left">Google DevFest Countdown Options</h1>
-	<!-- <span class="right" id="feedback"><a href="mail:" target="_blank">Feedback</a></span> -->
+	<!-- <span class="right" id="feedback"><a href="mailto:" target="_blank">Feedback</a></span> -->
 </div>
 
 <div class="section-header first">Options</div>
-<p>Going to which Google DevFest city?<p>
+<p>Going to which Google DevFest event?<p>
 Select City:
 <select id="cityComboBox" onchange="return markDirty()">
-	<option value="manila">Manila, Philippines</option>
-	<option value="singapore">Singapore, Singapore</option>
-	<option value="kuala_lumpur">Kuala Lumpur, Malaysia</option>
+	<option value="sydney_wave">Google Sydney, Australia - Wave</option>
+	<option value="sydney_apps">Google Sydney, Australia - Apps</option>
+	<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
+	<option value="sydney_social">Google Sydney, Australia - Social</option>
+	<option value="sydney_geo">Google Sydney, Australia - Geo</option>
+	<option value="israel">Airport City, Israel - Chrome</option>
+	<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
+	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
+	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
 </select>
 <div id="footer">
 	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions()">Save</button>
 	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions()">Cancel</button>
 	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions()">Restore default</button>
 </div>
-<div id="saveStatus" >Options saved. Options take effect automatically within ten seconds.</div>
+<div id="saveStatus" >Options saved. Options will take effect automatically within fithteen seconds.</div>
 
 <script type="text/javascript">
 var saveButton;
 var saveStatus;
 var defaultCity;
- 
+
+var cityNameArray;
+var cityDateArray;
+
+cityNameArray = new Array();
+cityNameArray['sydney_wave'] = "Google Sydney, Australia - Wave";
+cityNameArray['sydney_apps'] = "Google Sydney, Australia - Apps";
+cityNameArray['sydney_chrome'] = "Google Sydney, Australia - Chrome";
+cityNameArray['sydney_social'] = "Google Sydney, Australia - Social";
+cityNameArray['sydney_geo'] = "Google Sydney, Australia - Geo";
+cityNameArray['israel'] = "Airport City, Israel - Chrome";
+cityNameArray['manila'] = "Manila, Philippines";
+cityNameArray['singapore'] = "Singapore, Singapore";
+cityNameArray['kuala_lumpur'] = "Kuala Lumpur, Malaysia";
+
+cityDateArray = new Array();
+cityDateArray['sydney_wave'] = new Date("June 28, 2010 00:10:00");
+cityDateArray['sydney_apps'] = new Date("June 29, 2010 00:10:00");
+cityDateArray['sydney_chrome'] = new Date("June 30, 2010 00:10:00");
+cityDateArray['sydney_social'] = new Date("July 1,2010 00:10:00");
+cityDateArray['sydney_geo'] = new Date("July 2, 2010 00:10:00");
+cityDateArray['israel'] = new Date("June 29, 2010 00:09:00");
+cityDateArray['manila'] = new Date("July 6, 2010 00:08:30");
+cityDateArray['singapore'] = new Date("July 9, 2010 00:08:30");
+cityDateArray['kuala_lumpur'] = new Date("July 16, 2010 00:08:30");
+
 function init()
 {
 	saveButton = document.getElementById("buttonSave");
 	saveStatus = document.getElementById("saveStatus");
 	defaultCity = "kuala_lumpur";
+	defaultCityDate = new Date("July 16,2010 00:08:30");
 }
 
-// Restores select box state to saved value from localStorage.
 function loadOptions()
 {
 	init();
 	var favCity = localStorage["favCity"];
+	var favCityDate = localStorage["favCityDate"];
 
-	// valid colors are red, blue, green and yellow
-	if (favCity == undefined || (favCity != "manila" && favCity != "singapore" && favCity != "kuala_lumpur"))
+	if (favCity == undefined || (favCity != "sydney_wave"
+		&& favCity != "sydney_apps"
+		&& favCity != "sydney_chrome"
+		&& favCity != "sydney_social"
+		&& favCity != "sydney_geo"
+		&& favCity != "israel"
+		&& favCity != "manila" 
+		&& favCity != "singapore" 
+		&& favCity != "kuala_lumpur"
+		)
+	)
 	{
 		favCity = defaultCity;
+		favCityDate = defaultCityDate;
 	}
 
 	var selectedCity = document.getElementById("cityComboBox");
@@ -146,14 +188,13 @@ function loadOptions()
 	hideStuff("saveStatus");
 }
 
-// Saves options to localStorage.
 function saveOptions()
 {
 	var select = document.getElementById("cityComboBox");
-	var cityIndex = select.children[select.selectedIndex].value;
-	localStorage["favCity"] = cityIndex;
+	var cityNameIndex = select.children[select.selectedIndex].value;
+	localStorage["favCity"] = cityNameIndex;
+	localStorage["favCityDate"] = cityDateArray[cityNameIndex];
 	markClean();
-	//window.close();
 }
 
 function eraseOptions()
