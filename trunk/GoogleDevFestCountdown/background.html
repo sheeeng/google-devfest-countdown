@@ -10,12 +10,10 @@ function updateTime()
 	var favCityDate = new Date(localStorage["favCityDate"]);
 	if(favCityDate.toString() == "Invalid Date")
 	{
-		alert("favCityDate.toString() == \"Invalid Date\"");
 		favCityDate = new Date("July 16,2010 00:08:30");
 	}
 
 	var today_value = new Date();
-	alert("today_value = " + today_value + "\r\n" + "favCityDate =" + favCityDate);
 	var days_value = Math.floor((favCityDate-today_value)/(24*60*60*1000));
 	var hours_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*60*1000));
 	var minutes_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*1000))%60;
