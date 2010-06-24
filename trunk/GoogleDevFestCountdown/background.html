@@ -7,30 +7,30 @@ function updateTime()
 	var defaultCity = "kuala_lumpur";
 
 	var favCity = localStorage["favCity"];
-	var favDate = new Date("July 16,2010 00:08:30");
+	var favCityDate = new Date(localStorage["favCityDate"]);
 
-	var today = new Date();
-	var days_value = Math.floor((favDate-today)/(24*60*60*1000));
-	var hours_value = Math.floor(((favDate-today)%(24*60*60*1000))/(60*60*1000));
-	var minutes_value = Math.floor(((favDate-today)%(24*60*60*1000))/(60*1000))%60;
-	var seconds_value = Math.floor(((favDate-today)%(24*60*60*1000))/1000)%60%60;
+	var today_value	= new Date();
+	var days_value = Math.floor((favCityDate-today_value)/(24*60*60*1000));
+	var hours_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*60*1000));
+	var minutes_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*1000))%60;
+	var seconds_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/1000)%60%60;
 
-	if((favDate - today) > 0)
+	if((favCityDate - today_value) > 0)
 	{
-		titleElement = "Google DevFest coming in " + days_value + " days, " + hours_value + " hours, " + minutes_value + " minutes, " + seconds_value + " seconds.";
+		countdownText = "Google DevFest coming in " + days_value + " days, " + hours_value + " hours, " + minutes_value + " minutes, " + seconds_value + " seconds.";
 	}
 	else
 	{
-		titleElement = "Google DevFest has come!";
+		countdownText = "Google DevFest has come!";
 	}
-	localStorage["countdownText"] = titleElement;
-	chrome.browserAction.setTitle({title:titleElement});
+	localStorage["countdownText"] = countdownText;
+	chrome.browserAction.setTitle({title:countdownText});
 }
 
 function updateClock()
 {
 	updateTime();
-	setTimeout(updateClock,10000);
+	setTimeout(updateClock,15000);
 }
 </script>
 </head>
