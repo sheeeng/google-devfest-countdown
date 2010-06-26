@@ -33,3 +33,31 @@ function updateClock()
 	updateTime();
 	setTimeout(updateClock,15000);
 }
+
+function showOptionsFirstTime()
+{
+	//alert(localStorage.countdownText);
+	if(!localStorage.countdownText)
+	{
+		chrome.tabs.getAllInWindow
+		(undefined,
+			function(tabs)
+			{
+				// //alert("function(tabs)\r\n tabs.length = " + tabs.length);
+				// for (var i = 0, tab; tab = tabs[i]; i++)
+				// {
+					// var optionPage = {url:"options.html"};
+					// //alert("tab[" + i + "] = " + tab.url + "\r\noptionPage.id = " + optionPage.id);
+					// if (tab == optionPage)
+					// {
+						// alert("tab == optionPage");
+						// chrome.tabs.update(tab.id, {selected: true});
+						// return;
+					// }
+				// }
+				chrome.tabs.create({url:"options.html", selected:true});
+			}
+		);
+	}
+}
+
