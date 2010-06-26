@@ -209,6 +209,9 @@ function saveOptions()
 function eraseOptions()
 {
 	localStorage.removeItem("favCity");
+	localStorage.removeItem("favCityDate");
+	favCity = defaultCity;
+	favCityDate = defaultCityDate;
 	location.reload();
 	markClean();
 }
