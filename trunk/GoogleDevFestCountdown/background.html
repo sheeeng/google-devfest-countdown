@@ -1,6 +1,17 @@
 <html>
 <head>
 <script type="text/javascript">
+//Setup Google Analytics to track single page view
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-17161079-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = 'https://ssl.google-analytics.com/ga.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+})();
+
 function updateTime()
 {
 	var defaultCountdownDate = new Date("July 16,2010 00:08:30");
@@ -39,6 +50,7 @@ function updateClock()
 </script>
 </head>
 <body onload="updateClock()">
+<script src="analytics.js"></script>
 </body>
 </html>
 
