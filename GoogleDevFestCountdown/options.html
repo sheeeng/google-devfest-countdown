@@ -88,6 +88,7 @@ color:#000;
 
 </head>
 <body onload="loadOptions()">
+<script src="analytics.js"></script>
 <div id="header">
 	<h1 class="left">Google DevFest Countdown Options</h1>
 	<!-- <span class="right" id="feedback"><a href="mailto:" target="_blank">Feedback</a></span> -->
@@ -108,13 +109,21 @@ Select City:
 	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
 </select>
 <div id="footer">
-	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions()">Save</button>
-	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions()">Cancel</button>
-	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions()">Restore default</button>
+	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(Save);">Save</button>
+	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(Cancel);">Cancel</button>
+	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(RestoreDefault);">Restore default</button>
 </div>
 <div id="saveStatus" >Options saved. Options will take effect automatically within fithteen seconds.</div>
 
 <script type="text/javascript">
+/**
+ *  Tracks a single button click using Google Analytics.  You can use the _trackEvent command
+ *  to track user interactions with different parts of your extension.
+ **/
+function trackButton(button_id) {
+_gaq.push(['_trackEvent', 'Button' + button_id, 'clicked']);
+};
+  
 var saveButton;
 var saveStatus;
 var defaultCity;
