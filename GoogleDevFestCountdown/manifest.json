@@ -16,7 +16,7 @@
 	"256": "icon256.png",
 	"512": "icon512.png"
   },
-  "permissions": [],
+  "permissions": [ "tabs" ],
   "default locale": "en",
   "options_page": "options.html",
   "minimum_chrome_version": "4.0.302.2"
