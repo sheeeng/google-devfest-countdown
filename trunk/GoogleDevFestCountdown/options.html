@@ -89,39 +89,17 @@ color:#000;
 </head>
 <body onload="loadOptions()">
 <script src="analytics.js"></script>
-<div id="header">
-	<h1 class="left">Google DevFest Countdown Options</h1>
-	<!-- <span class="right" id="feedback"><a href="mailto:" target="_blank">Feedback</a></span> -->
-</div>
+<script>
+var buttonSaveName = new String("Save");
+var buttonCancelName = new String("Cancel");
+var buttonRestoreDefaultName = new String("RestoreDefault");
 
-<div class="section-header first">Options</div>
-<p>Going to which Google DevFest event?<p>
-Select City:
-<select id="cityComboBox" onchange="return markDirty()">
-	<option value="sydney_wave">Google Sydney, Australia - Wave</option>
-	<option value="sydney_apps">Google Sydney, Australia - Apps</option>
-	<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
-	<option value="sydney_social">Google Sydney, Australia - Social</option>
-	<option value="sydney_geo">Google Sydney, Australia - Geo</option>
-	<option value="israel">Airport City, Israel - Chrome</option>
-	<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
-	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
-	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
-</select>
-<div id="footer">
-	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(Save);">Save</button>
-	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(Cancel);">Cancel</button>
-	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(RestoreDefault);">Restore default</button>
-</div>
-<div id="saveStatus" >Options saved. Options will take effect automatically within fithteen seconds.</div>
-
-<script type="text/javascript">
 /**
  *  Tracks a single button click using Google Analytics.  You can use the _trackEvent command
  *  to track user interactions with different parts of your extension.
  **/
 function trackButton(button_id) {
-_gaq.push(['_trackEvent', 'Button' + button_id, 'clicked']);
+_gaq.push(['_trackEvent', 'button' + button_id, 'clicked']);
 };
 
 var saveButton;
@@ -238,5 +216,31 @@ function hideStuff(id)
 	document.getElementById(id).style.display = 'none';
 }
 </script>
+
+<div id="header">
+	<h1 class="left">Google DevFest Countdown Options</h1>
+	<!-- <span class="right" id="feedback"><a href="mailto:" target="_blank">Feedback</a></span> -->
+</div>
+
+<div class="section-header first">Options</div>
+<p>Going to which Google DevFest event?<p>
+Select City:
+<select id="cityComboBox" onchange="return markDirty()">
+	<option value="sydney_wave">Google Sydney, Australia - Wave</option>
+	<option value="sydney_apps">Google Sydney, Australia - Apps</option>
+	<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
+	<option value="sydney_social">Google Sydney, Australia - Social</option>
+	<option value="sydney_geo">Google Sydney, Australia - Geo</option>
+	<option value="israel">Airport City, Israel - Chrome</option>
+	<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
+	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
+	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
+</select>
+<div id="footer">
+	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(buttonSaveName);">Save</button>
+	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(buttonCancelName);">Cancel</button>
+	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(buttonRestoreDefaultName);">Restore default</button>
+</div>
+<div id="saveStatus">Options saved. Options will take effect automatically within fithteen seconds.</div>
 </body>
 </html>
