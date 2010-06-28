@@ -31,7 +31,20 @@ function updateTime()
 function updateClock()
 {
 	updateTime();
+	showBadgeTextAnimator(localStorage["countdownText"]);
 	setTimeout(updateClock,15000);
+}
+
+function showBadgeTextAnimator(displayText)
+{
+	var animator = new BadgeTextAnimator ( {
+	text: displayText, // text to be scrolled (or animated)
+	interval: 200, // the "speed" of the scrolling
+	repeat: false, // repeat the animation or not
+	size: 6 // size of the badge
+	} );
+	chrome.browserAction.setBadgeBackgroundColor({color:[255, 69, 0, 255]});
+	animator.animate ();
 }
 
 function showOptionsFirstTime()
