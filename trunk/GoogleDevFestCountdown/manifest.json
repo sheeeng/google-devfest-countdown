@@ -4,7 +4,7 @@
   "description": "Countdown to Google DevFest!",
   "background_page": "background.html",
   "browser_action": {
-    "default_icon": "logo_devfest_square_19.png",
+    "default_icon": "icon19.png",
     "popup": "popup.html"
   },
   "icons": {
