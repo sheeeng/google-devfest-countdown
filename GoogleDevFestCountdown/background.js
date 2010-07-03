@@ -1,3 +1,6 @@
+var seconds_value;
+var notifier = new Notifier();
+
 function updateTime()
 {
 	var defaultCountdownDate = new Date("July 16,2010 00:08:30");
@@ -14,7 +17,7 @@ function updateTime()
 	var days_value = Math.floor((favCityDate-today_value)/(24*60*60*1000));
 	var hours_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*60*1000));
 	var minutes_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*1000))%60;
-	var seconds_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/1000)%60%60;
+	seconds_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/1000)%60%60;
 
 	if((favCityDate - today_value) > 0)
 	{
@@ -23,6 +26,16 @@ function updateTime()
 	else
 	{
 		countdownText = "Google DevFest has come!";
+		/*
+		if(Boolean(localStorage["enableDesktopNotification"]))
+		{
+			notifier.Notify("icon32.png", "DevFest", localStorage["countdownText"]);
+		}
+		else
+		{
+			notifier.Notify("icon32.png", "#######", localStorage["countdownText"]);
+		}
+		*/
 	}
 	localStorage["countdownText"] = countdownText;
 	chrome.browserAction.setTitle({title:countdownText});
@@ -31,6 +44,8 @@ function updateTime()
 function updateClock()
 {
 	updateTime();
+	//showCounter();
+	animateFlip();
 	showBadgeTextAnimator(localStorage["countdownText"]);
 	setTimeout(updateClock,15000);
 }
@@ -44,12 +59,11 @@ function showBadgeTextAnimator(displayText)
 	size: 6 // size of the badge
 	} );
 	chrome.browserAction.setBadgeBackgroundColor({color:[255, 69, 0, 255]});
-	animator.animate ();
+	animator.animate();
 }
 
 function showOptionsFirstTime()
 {
-	//alert(localStorage.countdownText);
 	if(!localStorage.countdownText)
 	{
 		chrome.tabs.getAllInWindow

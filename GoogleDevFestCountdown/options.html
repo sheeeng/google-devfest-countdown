@@ -1,5 +1,6 @@
 <html>
 <head>
+<script src="desktop_notifier.js"></script>
 <title>Google DevFest Countdown Options</title>
 <style>
 body {
@@ -215,11 +216,46 @@ function hideStuff(id)
 {
 	document.getElementById(id).style.display = 'none';
 }
+
+/*
+function enableDesktopNotification()
+{
+	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
+	if(checkboxEnableDesktopNotification.checked)
+	{
+		localStorage["enableDesktopNotification"] = true;
+	}
+	else
+	{
+		localStorage["enableDesktopNotification"] = false;
+	}
+}
+
+function requestDesktopNotification()
+{
+	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
+
+	var notifier = new Notifier();
+	notifier.RequestPermission(function()
+	{
+		if(window.webkitNotifications.checkPermission() == 0)
+		{
+			checkboxEnableDesktopNotification.disabled = false;
+		}
+		else
+		{
+			checkboxEnableDesktopNotification.checked = false;
+			checkboxEnableDesktopNotification.disabled = true;
+		}
+	}
+	);
+}
+*/
 </script>
 
 <div id="header">
 	<h1 class="left">Google DevFest Countdown Options</h1>
-	<!-- <span class="right" id="feedback"><a href="mailto:" target="_blank">Feedback</a></span> -->
+	<span class="right" id="feedback"><a href="https://chrome.google.com/extensions/detail/cpaokbabilmdndkckllokmijokbaoong/" target="_blank">Feedback</a></span>
 </div>
 
 <div class="section-header first">Options</div>
@@ -236,11 +272,17 @@ Select City:
 	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
 	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
 </select>
+<!--
+<div id="featureOptions">
+	<button class="rounded_buttton" id="buttonRequestDesktopNotification" style="font-weight:bold" onclick="requestDesktopNotification();">Request Desktop Notification Permission</button>
+	<input type="checkbox" id="checkboxEnableDesktopNotification" onclick="enableDesktopNotification();" disabled="true">Enable Desktop Notification</input>
+</div>
+-->
 <div id="footer">
 	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(buttonSaveName);">Save</button>
 	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(buttonCancelName);">Cancel</button>
 	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(buttonRestoreDefaultName);">Restore default</button>
 </div>
-<div id="saveStatus">Options saved. Options will take effect automatically within fithteen seconds.</div>
+<div id="saveStatus">Options saved. Options will take effect automatically within fifteen seconds.</div>
 </body>
 </html>

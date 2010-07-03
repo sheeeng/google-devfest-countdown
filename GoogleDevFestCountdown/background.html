@@ -2,9 +2,13 @@
 <head>
 <script src="analytics.js"></script>
 <script src="badge_text_animator.js"></script>
+<script src="counter_animation.js"></script>
+<script src="desktop_notifier.js"></script>
 <script src="background.js"></script>
 </head>
-<body onload="showOptionsFirstTime(),updateClock()">
+<body onload="showOptionsFirstTime(),init(),updateClock()">
+<img id="logged_in" src="icon19.png">
+<canvas id="canvas" width="19" height="19">
 </body>
 </html>
 
