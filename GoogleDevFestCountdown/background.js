@@ -1,5 +1,15 @@
-var seconds_value;
 var notifier = new Notifier();
+var notifierEnabled = false;
+
+function setNotifierEnabled(enabled)
+{
+	notifierEnabled = enabled;
+}
+
+function getNotifierEnabled()
+{
+	return notifierEnabled;
+}
 
 function updateTime()
 {
@@ -17,7 +27,7 @@ function updateTime()
 	var days_value = Math.floor((favCityDate-today_value)/(24*60*60*1000));
 	var hours_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*60*1000));
 	var minutes_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/(60*1000))%60;
-	seconds_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/1000)%60%60;
+	var seconds_value = Math.floor(((favCityDate-today_value)%(24*60*60*1000))/1000)%60%60;
 
 	if((favCityDate - today_value) > 0)
 	{
@@ -26,18 +36,12 @@ function updateTime()
 	else
 	{
 		countdownText = "Google DevFest has come!";
-		/*
-		if(Boolean(localStorage["enableDesktopNotification"]))
-		{
-			notifier.Notify("icon32.png", "DevFest", localStorage["countdownText"]);
-		}
-		else
-		{
-			notifier.Notify("icon32.png", "#######", localStorage["countdownText"]);
-		}
-		*/
 	}
 	localStorage["countdownText"] = countdownText;
+	if(notifierEnabled)
+	{
+		notifier.Notify('icon48.png', 'Google DevFest Countdown', countdownText);
+	}
 	chrome.browserAction.setTitle({title:countdownText});
 }
 
