@@ -17,6 +17,7 @@
 	"512": "icon512.png"
   },
   "permissions": [
+    "http://*.twitter.com/*",
     "tabs",
 	"notifications"
     ],

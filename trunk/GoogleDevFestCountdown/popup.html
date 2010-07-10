@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css" />
+<script src="popup_util.js"></script>
 <style type="text/css">
 #wrap {
 width:300px;
 margin:0 auto;
 //background:#99c;
 }
+
 #iconbar {
 float:left;
 width:80px;
-height:100px;
+height:96px;
 //background:#9c9;
 }
+
 #textbar {
 float:right;
-width:200px;
+width:220px;
+height:96px;
 //background:#c9c;
 }
 </style>
@@ -33,16 +37,115 @@ width:200px;
 		>
 	</div>
 	<div id="textbar">
-		<h3></h3> <!-- Push text downwards so that it looks center.-->
 		<span id="popupText"></span>
 	</div>
 </div>
+
+<div id="bottomBar">
+	<div id="title">
+		<h3> </h3>
+		<h3>DevFest on Twitter</h3>
+		<h3> </h3>
+	</div>
+	<ol id="timeline" />
+</div>
+<ol id="template">
+  <li>
+	<div class="thumbnail">
+	  <a>
+		<img />
+	  </a>
+	</div>
+	<div class="text">
+	  <a></a>
+	  <span></span>
+	</div>
+	<div class="clear"></div>
+  </li>
+</ol>
+
 <script language="javascript">
+
+var bg; // background page
+
+// timeline attributes
+var timeline;
+var template;
+var link;
+var image;
+var author;
+var content;
+
+onload = setTimeout(init, 0); // workaround for http://crbug.com/24467
+
+// initialize timeline template
+function init() {
+	chrome.browserAction.setBadgeText({text: ''});
+	bg = chrome.extension.getBackgroundPage();
+	bg.unreadCount = 0;
+
+	timeline = document.getElementById('timeline');
+	template = xpath('//ol[@id="template"]/li', document);
+	link = xpath('//div[@class="thumbnail"]/a', template);
+	image = xpath('img', link);
+	author = xpath('//div[@class="text"]/a', template);
+	content = xpath('//div[@class="text"]/span', template);
+update();
+}
+
+// update display
+function update() {
+	var user;
+	var url;
+	var item;
+
+	for (var i in bg.tweets) {
+		/*
+		user = bg.tweets[i].user;
+		url = 'http://twitter.com/' + user.screen_name;
+
+		// thumbnail
+		link.title = user.name;
+		link.href = openInNewTab(url);
+		image.src = user.profile_image_url;
+		image.alt = user.name;
+
+		// text
+		author.href = openInNewTab(url);
+		author.innerHTML = user.name;
+		content.innerHTML = linkify(bg.tweets[i].text);
+
+		// copy node and update
+		item = template.cloneNode(true);
+		timeline.appendChild(item);
+		*/
+
+		//alert(bg.tweets[i].from_user);
+		user = bg.tweets[i].from_user;
+		url = 'http://twitter.com/' + bg.tweets[i].from_user;
+
+		// thumbnail
+		link.title = bg.tweets[i].from_user;
+		link.href = openInNewTab(url);
+		image.src = bg.tweets[i].profile_image_url;
+		image.alt = bg.tweets[i].from_user;
+
+		// text
+		author.href = openInNewTab(url);
+		author.innerHTML = bg.tweets[i].from_user;
+		content.innerHTML = linkify(bg.tweets[i].text);
+
+		// copy node and update
+		item = template.cloneNode(true);
+		timeline.appendChild(item);
+	}
+}
+
 function change()
 {
 	var bgPage = chrome.extension.getBackgroundPage();
 	bgPage.updateTime();
-	document.getElementById("popupText").innerHTML = localStorage["countdownText"];
+	document.getElementById("popupText").innerHTML = '<h3>' + localStorage["countdownText"] + '</h3>';
 }
 change();
 </script>
