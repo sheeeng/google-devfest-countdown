@@ -17,7 +17,8 @@
 	"512": "icon512.png"
   },
   "permissions": [
-    "tabs"
+    "tabs",
+	"notifications"
     ],
   "default locale": "en",
   "options_page": "options.html",

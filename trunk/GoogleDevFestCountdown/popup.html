@@ -3,16 +3,39 @@
 <head>
 <meta charset="utf-8">
 <style type="text/css">
-.toolstrip-button
-{
-    width:200px;
+#wrap {
+width:300px;
+margin:0 auto;
+//background:#99c;
+}
+#iconbar {
+float:left;
+width:80px;
+height:100px;
+//background:#9c9;
+}
+#textbar {
+float:right;
+width:200px;
+//background:#c9c;
 }
 </style>
 </head>
 <body>
 <script src="analytics.js"></script>
-<div class="toolstrip-button">
-    <span id="popupText"></span>
+<script src="desktop_notifier.js"></script>
+<div id="wrap">
+	<div id="iconbar">
+		<img src="icon48.png" style="
+			border:1px solid white;
+			-webkit-box-reflect:below 1px
+			-webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.4, transparent), to(white));"
+		>
+	</div>
+	<div id="textbar">
+		<h3></h3> <!-- Push text downwards so that it looks center.-->
+		<span id="popupText"></span>
+	</div>
 </div>
 <script language="javascript">
 function change()
@@ -20,23 +43,8 @@ function change()
 	var bgPage = chrome.extension.getBackgroundPage();
 	bgPage.updateTime();
 	document.getElementById("popupText").innerHTML = localStorage["countdownText"];
-
- /*
-//notification
-// Create a simple text notification
-var notification = webkitNotifications.createNotification(
-'icon48.png',  // icon url - can be relative
-'Google DevFest Countdown',  // notification title
-popupTextElement.innerHTML  // notification body text
-);
-
-// Then show the notification.
-notification.show();
- */
- 
 }
-change(); 
-    
+change();
 </script>
 </body>
 </html>

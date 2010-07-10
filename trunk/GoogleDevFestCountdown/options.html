@@ -172,6 +172,17 @@ function loadOptions()
 			break;
 		}
 	}
+	
+	var bgPage = chrome.extension.getBackgroundPage();
+	if(bgPage.getNotifierEnabled())
+	{
+		checkboxEnableDesktopNotification.checked = true;
+	}
+	else
+	{
+		checkboxEnableDesktopNotification.checked = false;
+	}
+	
 	markClean();
 	hideStuff("saveStatus");
 }
@@ -216,49 +227,44 @@ function hideStuff(id)
 {
 	document.getElementById(id).style.display = 'none';
 }
-
-/*
 function enableDesktopNotification()
 {
 	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
+	var bgPage = chrome.extension.getBackgroundPage();
 	if(checkboxEnableDesktopNotification.checked)
 	{
-		localStorage["enableDesktopNotification"] = true;
+		bgPage.setNotifierEnabled(true);
 	}
 	else
 	{
-		localStorage["enableDesktopNotification"] = false;
+		bgPage.setNotifierEnabled(false);
 	}
 }
-
-function requestDesktopNotification()
+function checkDesktopNotification()
 {
 	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
-
-	var notifier = new Notifier();
-	notifier.RequestPermission(function()
+	var bgPage = chrome.extension.getBackgroundPage();
+	if(checkboxEnableDesktopNotification.checked)
 	{
-		if(window.webkitNotifications.checkPermission() == 0)
-		{
-			checkboxEnableDesktopNotification.disabled = false;
-		}
-		else
-		{
-			checkboxEnableDesktopNotification.checked = false;
-			checkboxEnableDesktopNotification.disabled = true;
-		}
+		bgPage.setNotifierEnabled(true);
 	}
-	);
+	else
+	{
+		bgPage.setNotifierEnabled(false);
+	}
 }
-*/
 </script>
 
 <div id="header">
 	<h1 class="left">Google DevFest Countdown Options</h1>
 	<span class="right" id="feedback"><a href="https://chrome.google.com/extensions/detail/cpaokbabilmdndkckllokmijokbaoong/" target="_blank">Feedback</a></span>
 </div>
-
-<div class="section-header first">Options</div>
+<div class="section-header first">Notification Options</div>
+<p>Remind you with dekstop notification every fifteen seconds?<p>
+<div>
+	<input type="checkbox" id="checkboxEnableDesktopNotification" onmouseout="checkDesktopNotification();" onclick="enableDesktopNotification();">Show Desktop Notification</input>
+</div>
+<div class="section-header first">Venue Options</div>
 <p>Going to which Google DevFest event?<p>
 Select City:
 <select id="cityComboBox" onchange="return markDirty()">
@@ -272,12 +278,6 @@ Select City:
 	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
 	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
 </select>
-<!--
-<div id="featureOptions">
-	<button class="rounded_buttton" id="buttonRequestDesktopNotification" style="font-weight:bold" onclick="requestDesktopNotification();">Request Desktop Notification Permission</button>
-	<input type="checkbox" id="checkboxEnableDesktopNotification" onclick="enableDesktopNotification();" disabled="true">Enable Desktop Notification</input>
-</div>
--->
 <div id="footer">
 	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(buttonSaveName);">Save</button>
 	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(buttonCancelName);">Cancel</button>
