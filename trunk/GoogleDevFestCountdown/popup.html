@@ -127,16 +127,17 @@ function update() {
 
 		//alert(bg.tweets[i].from_user);
 		user = bg.tweets[i].from_user;
-		url = 'http://twitter.com/' + bg.tweets[i].from_user;
+		user_url = 'http://twitter.com/' + bg.tweets[i].from_user;
+		tweet_url = 'http://twitter.com/' + bg.tweets[i].from_user + '/status/' + bg.tweets[i].id;
 
 		// thumbnail
 		link.title = bg.tweets[i].from_user;
-		link.href = openInNewTab(url);
+		link.href = openInNewTab(tweet_url);
 		image.src = bg.tweets[i].profile_image_url;
 		image.alt = bg.tweets[i].from_user;
 
 		// text
-		author.href = openInNewTab(url);
+		author.href = openInNewTab(user_url);
 		author.innerHTML = bg.tweets[i].from_user;
 		content.innerHTML = linkify(bg.tweets[i].text);
 
