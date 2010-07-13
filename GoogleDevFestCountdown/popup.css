@@ -14,12 +14,21 @@ a:hover { text-decoration: underline }
 
 .thumbnail {
   float: left;
-  padding: 0 10px
+  padding: 0 5px;
 }
 
 .thumbnail img {
   width: 48px;
-  height: 48px
+  height: 48px;
+  border: 5px solid #c4c8cc;
+  -moz-border-radius-topleft: 15px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 15px;
+  -moz-border-radius-bottomleft: 0px;
+  -webkit-border-top-left-radius: 15px;
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+  -webkit-border-bottom-right-radius: 15px;
 }
 
 .text { margin-left: 68px }
@@ -28,16 +37,19 @@ a:hover { text-decoration: underline }
 
 #body {
   width: 300px;
-  /*
   height: 500px;
   overflow: auto
-  */
 }
 
 #title {
   text-align: center;
-  color: #9ae4e8;
+  color: #A65400;
+  /*
+  background-color: #FFF1A8;
   font-weight: bold
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  */
 }
 
 #timeline { list-style-type: none }
