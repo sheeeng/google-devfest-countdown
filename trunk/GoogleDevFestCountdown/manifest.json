@@ -1,6 +1,6 @@
 {
   "name": "Google DevFest Countdown",
-  "version": "0.0.0.12",
+  "version": "0.0.0.13",
   "description": "Countdown to Google DevFest!",
   "background_page": "background.html",
   "browser_action": {
