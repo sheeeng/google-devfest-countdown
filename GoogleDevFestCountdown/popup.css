@@ -57,3 +57,33 @@ a:hover { text-decoration: underline }
 #timeline li { padding: 10px 0 }
 
 #template { display: none }
+
+
+#wrap {
+width:300px;
+margin:0 auto;
+padding-right: 50px;
+}
+
+/* 
+ * Main Layout for Popup
+ *
+ */
+
+#iconbar {
+float:left;
+width:80px;
+height:96px;
+}
+
+#textbar {
+float:right;
+width:200px;
+height:96px;
+}
+
+#bottomBar {
+margin-top: 5px;
+margin-bottom: 5px;
+float:bottom;
+}

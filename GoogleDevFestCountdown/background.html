@@ -1,60 +1,61 @@
 <html>
-<head>
-<script src="analytics.js"></script>
-<script src="badge_text_animator.js"></script>
-<script src="counter_animation.js"></script>
-<script src="desktop_notifier.js"></script>
-<script src="background.js"></script>
-</head>
-<body onload="showOptionsFirstTime(),init(),updateClock()">
-<img id="logged_in" src="icon19.png">
-<canvas id="canvas" width="19" height="19">
-<script>
-var fetchFreq = 30000; // how often we fetch new tweets (30s)
-var req; // request object
-var unreadCount = 0; // how many unread tweets we have
-var tweets; // all currently fetched tweets
+	<head>
+		<script src="analytics.js"></script>
+		<script src="badge_text_animator.js"></script>
+		<script src="counter_animation.js"></script>
+		<script src="desktop_notifier.js"></script>
+		<script src="background.js"></script>
+	</head>
+	<body onload="showOptionsFirstTime(),init(),updateClock()">
+		<img id="logged_in" src="icon19.png">
+		<canvas id="canvas" width="19" height="19">
+		<script>
+		var fetchFreq = 30000; // how often we fetch new tweets (30s)
+		var req; // request object
+		var unreadCount = 0; // how many unread tweets we have
+		var tweets; // all currently fetched tweets
 
-getTweets();
-setInterval(getTweets, fetchFreq);
+		getTweets();
+		setInterval(getTweets, fetchFreq);
 
-// fetch timeline from server
-function getTweets() {
-req = new XMLHttpRequest();
-//req.open('GET', 'http://twitter.com/statuses/public_timeline.json');
-req.open('GET', 'http://search.twitter.com/search.json?q=devfest');
-req.onload = processTweets;
-req.send();
-}
+		// fetch timeline from server
+		function getTweets() {
+		req = new XMLHttpRequest();
+		//req.open('GET', 'http://twitter.com/statuses/public_timeline.json');
+		req.open('GET', 'http://search.twitter.com/search.json?q=devfest');
+		//req.open('GET', 'http://www.googleapis.com/buzz/v1/activities/search?q=devfest&alt=json');
+		req.onload = processTweets;
+		req.send();
+		}
 
-// process new batch of tweets
-function processTweets() {
-//alert(req.responseText);
-var res = JSON.parse(req.responseText);
-//alert(res);
-//unreadCount += res.length;
-unreadCount += res.results.length;
-//alert(res.results);
-//alert(res.results.length);
+		// process new batch of tweets
+		function processTweets() {
+		//alert(req.responseText);
+		var res = JSON.parse(req.responseText);
+		//alert(res.responseText);
+		//unreadCount += res.length;
+		unreadCount += res.results.length;
+		//alert(res.results);
+		//alert(res.results.length);
 
-/*
-if (unreadCount > 0) {
-  chrome.browserAction.setBadgeBackgroundColor({
-	color: [255, 0, 0, 255]
-  });
-  chrome.browserAction.setBadgeText({text: '' + unreadCount});
-}
-*/
+		/*
+		if (unreadCount > 0) {
+		  chrome.browserAction.setBadgeBackgroundColor({
+			color: [255, 0, 0, 255]
+		  });
+		  chrome.browserAction.setBadgeText({text: '' + unreadCount});
+		}
+		*/
 
-tweets = new Array();
-for (i=0;i<res.results.length;i++) {
-	tweets.push(res.results[i]);
-}
+		tweets = new Array();
+		for (i=0;i<res.results.length;i++) {
+			tweets.push(res.results[i]);
+		}
 
-//tweets = res.concat(tweets);
-//alert("processTweets() - " + res.results[0]);
-}
-</script>
-</body>
+		//tweets = res.concat(tweets);
+		//alert("processTweets() - " + res.results[0]);
+		}
+		</script>
+	</body>
 </html>
 

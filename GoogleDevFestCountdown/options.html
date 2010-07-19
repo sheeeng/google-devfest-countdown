@@ -1,290 +1,130 @@
 <html>
-<head>
-<script src="desktop_notifier.js"></script>
-<title>Google DevFest Countdown Options</title>
-<style>
-body {
-  font-family:helvetica, arial, sans-serif;
-  font-size:80%;
-  margin:10px;
-}
+	<head>
+		<script src="desktop_notifier.js"></script>
+		<title>Google DevFest Countdown Options</title>
+		<link rel="stylesheet" href="options.css" />
+	</head>
 
-#header {
-  padding-bottom:1.5em;
-  padding-top:1.5em;
-}
+	<body onload="loadOptions();init_map();">
+		<script src="analytics.js"></script>
+		<script src="options.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<div id="header">
+			<h1 class="left">Google DevFest Countdown Options</h1>
+			<span class="right" id="feedback"><a href="https://chrome.google.com/extensions/detail/cpaokbabilmdndkckllokmijokbaoong/" target="_blank">Feedback</a></span>
+		</div>
+		<div class="section-header first">Notification Options</div>
+		<p>Remind you with dekstop notification every fifteen seconds?<p>
+		<div>
+			<input type="checkbox" id="checkboxEnableDesktopNotification" onmouseout="checkDesktopNotification();" onclick="enableDesktopNotification();">Show Desktop Notification</input>
+		</div>
+		<div class="section-header first">Venue Options</div>
+		<p>Going to which Google DevFest event?<p>
+		Select City:
+		<select id="cityComboBox" onchange="update_map(); return markDirty();">
+			<option value="sydney_wave">Google Sydney, Australia - Wave</option>
+			<option value="sydney_apps">Google Sydney, Australia - Apps</option>
+			<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
+			<option value="sydney_social">Google Sydney, Australia - Social</option>
+			<option value="sydney_geo">Google Sydney, Australia - Geo</option>
+			<option value="israel">Airport City, Israel - Chrome</option>
+			<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
+			<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
+			<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
+		</select>
+		<div id="map_canvas"></div>
+		<div id="footer">
+			<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); update_map(); trackButton(buttonSaveName);">Save</button>
+			<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(buttonCancelName);">Cancel</button>
+			<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(buttonRestoreDefaultName);">Restore default</button>
+		</div>
 
-#header h1 {
-  font-size: 150%;
-  display:inline;
-  padding-bottom:43px;
-  padding-left:75px;
-  padding-top:40px;
-  background:url(icon128.png) no-repeat;
-  background-size:67px;
-  background-position:1px 18px;
-}
-
-.section-header {
-  background:#ebeff9;
-  border-top:1px solid #b5c7de;;
-  font-size:99%;
-  padding:3px 0 2px 5px;
-  font-weight:bold;
-  margin-bottom:1em;
-  margin-top:4em;
-}
-
-.section-header.first {
-  margin-top:1em;
-}
-
-.rounded_buttton{
-  margin:1px;
-  border-style: solid;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-
-.rounded_buttton:enabled{
-	background-color: #C1EAAC;
- 	color: #000;
-}
-
-.rounded_buttton:disabled{
-	background-color: #B0C4DE;
- 	color:#FFF;
-} 
-
-#footer {
-  margin-top:4em;
-}
-
-span.left {
-position: absolute;
-left: 10;
-}
-
-span.right {
-position: absolute;
-right: 10;
-}
-
-#saveStatus
-{
-margin-top:4px;
-float: left; 
-display:none;
-padding-bottom: 2px;
-padding-left: 7px;
-padding-right: 7px;
-padding-top: 2px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-background-color: #FFF1A8;
-color:#000;
-}
-
-</style>
-
-</head>
-<body onload="loadOptions()">
-<script src="analytics.js"></script>
-<script>
-var buttonSaveName = new String("Save");
-var buttonCancelName = new String("Cancel");
-var buttonRestoreDefaultName = new String("RestoreDefault");
-
-/**
- *  Tracks a single button click using Google Analytics.  You can use the _trackEvent command
- *  to track user interactions with different parts of your extension.
- **/
-function trackButton(button_id) {
-_gaq.push(['_trackEvent', 'button' + button_id, 'clicked']);
-};
-
-var saveButton;
-var saveStatus;
-var defaultCity;
-
-var cityNameArray;
-var cityDateArray;
-
-cityNameArray = new Array();
-cityNameArray['sydney_wave'] = "Google Sydney, Australia - Wave";
-cityNameArray['sydney_apps'] = "Google Sydney, Australia - Apps";
-cityNameArray['sydney_chrome'] = "Google Sydney, Australia - Chrome";
-cityNameArray['sydney_social'] = "Google Sydney, Australia - Social";
-cityNameArray['sydney_geo'] = "Google Sydney, Australia - Geo";
-cityNameArray['israel'] = "Airport City, Israel - Chrome";
-cityNameArray['manila'] = "Manila, Philippines";
-cityNameArray['singapore'] = "Singapore, Singapore";
-cityNameArray['kuala_lumpur'] = "Kuala Lumpur, Malaysia";
-
-cityDateArray = new Array();
-cityDateArray['sydney_wave'] = new Date("June 28, 2010 00:10:00");
-cityDateArray['sydney_apps'] = new Date("June 29, 2010 00:10:00");
-cityDateArray['sydney_chrome'] = new Date("June 30, 2010 00:10:00");
-cityDateArray['sydney_social'] = new Date("July 1,2010 00:10:00");
-cityDateArray['sydney_geo'] = new Date("July 2, 2010 00:10:00");
-cityDateArray['israel'] = new Date("June 29, 2010 00:09:00");
-cityDateArray['manila'] = new Date("July 6, 2010 00:08:30");
-cityDateArray['singapore'] = new Date("July 9, 2010 00:08:30");
-cityDateArray['kuala_lumpur'] = new Date("July 16, 2010 00:08:30");
-
-function init()
-{
-	saveButton = document.getElementById("buttonSave");
-	saveStatus = document.getElementById("saveStatus");
-	defaultCity = "kuala_lumpur";
-	defaultCityDate = new Date("July 16,2010 00:08:30");
-}
-
-function loadOptions()
-{
-	init();
-	var favCity = localStorage["favCity"];
-	var favCityDate = localStorage["favCityDate"];
-
-	if (favCity == undefined || (favCity != "sydney_wave"
-		&& favCity != "sydney_apps"
-		&& favCity != "sydney_chrome"
-		&& favCity != "sydney_social"
-		&& favCity != "sydney_geo"
-		&& favCity != "israel"
-		&& favCity != "manila" 
-		&& favCity != "singapore" 
-		&& favCity != "kuala_lumpur"
-		)
-	)
-	{
-		favCity = defaultCity;
-		favCityDate = defaultCityDate;
-	}
-
-	var selectedCity = document.getElementById("cityComboBox");
-	for (var i = 0; i < selectedCity.children.length; i++)
-	{
-		var child = selectedCity.children[i];
-		if (child.value == favCity)
-		{
-			child.selected = "true";
-			break;
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script>
+		var map;
+		function init_map() {
+			var latlng = new google.maps.LatLng(3.0455328234928123, 101.68960332870483);
+			var venueMapOptions = {
+			  zoom: 15,
+			  center: latlng,
+			  mapTypeId: google.maps.MapTypeId.HYBRID,
+			  scaleControl: true,
+			  mapTypeControlOptions: {
+				style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+				position: google.maps.ControlPosition.TOP_LEFT
+			  },
+			  navigationControlOptions: {
+				position: google.maps.ControlPosition.TOP_RIGHT
+			  }
+			};
+			map = new google.maps.Map(document.getElementById("map_canvas"), venueMapOptions);
 		}
-	}
-	
-	var bgPage = chrome.extension.getBackgroundPage();
-	if(bgPage.getNotifierEnabled())
-	{
-		checkboxEnableDesktopNotification.checked = true;
-	}
-	else
-	{
-		checkboxEnableDesktopNotification.checked = false;
-	}
-	
-	markClean();
-	hideStuff("saveStatus");
-}
-
-function saveOptions()
-{
-	var select = document.getElementById("cityComboBox");
-	var cityNameIndex = select.children[select.selectedIndex].value;
-	localStorage["favCity"] = cityNameIndex;
-	localStorage["favCityDate"] = cityDateArray[cityNameIndex];
-	markClean();
-}
-
-function eraseOptions()
-{
-	localStorage.removeItem("favCity");
-	localStorage.removeItem("favCityDate");
-	favCity = defaultCity;
-	favCityDate = defaultCityDate;
-	location.reload();
-	markClean();
-}
-
-function markDirty()
-{
-  saveButton.disabled = false;
-  hideStuff("saveStatus");
-}
-
-function markClean()
-{
-  saveButton.disabled = true;
-  showStuff("saveStatus");
-}
-
-function showStuff(id)
-{
-	document.getElementById(id).style.display = 'block';
-}
-
-function hideStuff(id)
-{
-	document.getElementById(id).style.display = 'none';
-}
-
-function enableDesktopNotification()
-{
-	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
-	var bgPage = chrome.extension.getBackgroundPage();
-	if(checkboxEnableDesktopNotification.checked)
-	{
-		bgPage.setNotifierEnabled(true);
-	}
-	else
-	{
-		bgPage.setNotifierEnabled(false);
-	}
-}
-
-function checkDesktopNotification()
-{
-	checkboxEnableDesktopNotification = document.getElementById("checkboxEnableDesktopNotification");
-	var bgPage = chrome.extension.getBackgroundPage();
-	if(checkboxEnableDesktopNotification.checked)
-	{
-		bgPage.setNotifierEnabled(true);
-	}
-	else
-	{
-		bgPage.setNotifierEnabled(false);
-	}
-}
-</script>
-
-<div id="header">
-	<h1 class="left">Google DevFest Countdown Options</h1>
-	<span class="right" id="feedback"><a href="https://chrome.google.com/extensions/detail/cpaokbabilmdndkckllokmijokbaoong/" target="_blank">Feedback</a></span>
-</div>
-<div class="section-header first">Notification Options</div>
-<p>Remind you with dekstop notification every fifteen seconds?<p>
-<div>
-	<input type="checkbox" id="checkboxEnableDesktopNotification" onmouseout="checkDesktopNotification();" onclick="enableDesktopNotification();">Show Desktop Notification</input>
-</div>
-<div class="section-header first">Venue Options</div>
-<p>Going to which Google DevFest event?<p>
-Select City:
-<select id="cityComboBox" onchange="return markDirty()">
-	<option value="sydney_wave">Google Sydney, Australia - Wave</option>
-	<option value="sydney_apps">Google Sydney, Australia - Apps</option>
-	<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
-	<option value="sydney_social">Google Sydney, Australia - Social</option>
-	<option value="sydney_geo">Google Sydney, Australia - Geo</option>
-	<option value="israel">Airport City, Israel - Chrome</option>
-	<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
-	<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
-	<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
-</select>
-<div id="footer">
-	<button class="rounded_buttton" id="buttonSave" style="font-weight:bold" onclick="saveOptions(); trackButton(buttonSaveName);">Save</button>
-	<button class="rounded_buttton" id="buttonCancel" onclick="loadOptions(); trackButton(buttonCancelName);">Cancel</button>
-	<button class="rounded_buttton" id="buttonRestoreDefault" onclick="eraseOptions(); trackButton(buttonRestoreDefaultName);">Restore default</button>
-</div>
-<div id="saveStatus">Options saved. Options will take effect automatically within fifteen seconds.</div>
-</body>
+		
+		function update_map()
+		{
+			var select = document.getElementById("cityComboBox");
+			var cityNameIndex = select.children[select.selectedIndex].value;
+			localStorage["favCity"] = cityNameIndex;
+			if(cityNameIndex == "sydney_wave"
+			|| cityNameIndex == "sydney_apps"
+			|| cityNameIndex == "sydney_chrome"
+			|| cityNameIndex == "sydney_social"
+			|| cityNameIndex == "sydney_geo")
+			{
+				moveToSydney();
+			}
+			else if(cityNameIndex == "israel")
+			{
+				moveToIsrael();
+			}
+			else if(cityNameIndex == "manila")
+			{
+				moveToManila();
+			}
+			else if(cityNameIndex == "singapore")
+			{
+				moveToSingapore();
+			}
+			else if(cityNameIndex == "kuala_lumpur")
+			{
+				moveToKualaLumpur();
+			}
+			else
+			{
+				moveToKualaLumpur();
+			}
+		}
+		
+		function moveToSydney() {
+			// Google Sydney Office, Google Australia Pty Ltd., Level 5, 48 Pirrama Road, Pyrmont, NSW 2009, Australia.
+			var latlng = new google.maps.LatLng(-33.866976934111065, 151.1958646774292);
+			map.setCenter(latlng);
+		}
+		
+		function moveToIsrael() {
+			// Avenue Convention and Events Center, HaSharon St., Airport City, Israel.
+			var latlng = new google.maps.LatLng(32.061508, 34.778401);
+			map.setCenter(latlng);
+		}
+		
+		function moveToManila() {
+			// TechnoHub, Commonwealth Avenue, UP Campus, Quezon City, Manila, Philippines.
+			var latlng = new google.maps.LatLng(14.657229308041812, 121.05583906173706);
+			map.setCenter(latlng);
+		}
+		
+		function moveToSingapore() {
+			// Genexis Theatre & Lounge, Level 5, Connexis Tower, Fusionopolis, 1 Fusionopolis Way, Singapore 138632.
+			var latlng = new google.maps.LatLng(1.299362, 103.788685);
+			map.setCenter(latlng);
+		}
+		
+		function moveToKualaLumpur() {
+			// Technology Park Malaysia, Ground Floor, Enterprise 4, Bukit Jalil, 57000 Kuala Lumpur, Malaysia
+			var latlng = new google.maps.LatLng(3.0455328234928123, 101.68960332870483);
+			map.setCenter(latlng);
+		}
+		</script>
+		<div id="saveStatus">Options saved. Options will take effect automatically within fifteen seconds.</div>
+	</body>
 </html>
