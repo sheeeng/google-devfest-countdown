@@ -18,6 +18,7 @@
   },
   "permissions": [
     "http://*.twitter.com/*",
+	"http://www.googleapis.com/*",
     "tabs",
 	"notifications"
     ],
