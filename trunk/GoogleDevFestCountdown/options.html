@@ -68,6 +68,7 @@
 			  }
 			};
 			map = new google.maps.Map(document.getElementById("map_canvas"), venueMapOptions);
+			update_map();
 		}
 		
 		function update_map()
@@ -98,6 +99,30 @@
 			else if(cityNameIndex == "kuala_lumpur")
 			{
 				moveToKualaLumpur();
+			}
+			else if(cityNameIndex == "taipei")
+			{
+				moveToTaipei();
+			}
+			else if(cityNameIndex == "hong_kong")
+			{
+				moveToHongKong();
+			}
+			else if(cityNameIndex == "jakarta")
+			{
+				moveToJakarta();
+			}
+			else if(cityNameIndex == "bangkok")
+			{
+				moveToBangkok();
+			}
+			else if(cityNameIndex == "madrid")
+			{
+				moveToMadrid();
+			}
+			else if(cityNameIndex == "buenos_aires")
+			{
+				moveToBuenosAires();
 			}
 			else
 			{
@@ -132,6 +157,44 @@
 		function moveToKualaLumpur() {
 			// Technology Park Malaysia, Ground Floor, Enterprise 4, Bukit Jalil, 57000 Kuala Lumpur, Malaysia
 			var latlng = new google.maps.LatLng(3.0455328234928123, 101.68960332870483);
+			map.setCenter(latlng);
+		}
+		
+		
+		function moveToTaipei() {
+			// Taipei, Taiwan
+			var latlng = new google.maps.LatLng(25.091079073703586, 121.55983686447144);
+			map.setCenter(latlng);
+		}
+		
+		function moveToHongKong() {
+			// Hong Kong
+			var latlng = new google.maps.LatLng(22.24785275834251, 114.20337438583374);
+			map.setCenter(latlng);
+		}
+		
+		function moveToJakarta() {
+			// Jakarta, Indonesia
+			var latlng = new google.maps.LatLng(-6.211551441519991, 106.8451738357544);
+			map.setCenter(latlng);
+		}
+		
+		function moveToBangkok() {
+			// Bangkok, Thailand
+			var latlng = new google.maps.LatLng(13.72341828052588, 100.47623634338379);
+			map.setCenter(latlng);
+		}
+		
+		
+		function moveToMadrid() {
+			// Madrid, Spain
+			var latlng = new google.maps.LatLng(40.41669813586243, -3.7003326416015625);
+			map.setCenter(latlng);
+		}
+		
+		function moveToBuenosAires() {
+			// Buenos Aires, Argentina
+			var latlng = new google.maps.LatLng(-34.608415850547374, -58.37315082550049);
 			map.setCenter(latlng);
 		}
 		</script>
