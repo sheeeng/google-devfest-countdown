@@ -102,15 +102,15 @@ function loadOptions()
 		}
 	}
 	
-	var bgPage = chrome.extension.getBackgroundPage();
-	if(bgPage.getNotifierEnabled())
-	{
-		checkboxEnableDesktopNotification.checked = true;
-	}
-	else
-	{
-		checkboxEnableDesktopNotification.checked = false;
-	}
+	// var bgPage = chrome.extension.getBackgroundPage();
+	// if(bgPage.getNotifierEnabled())
+	// {
+		// checkboxEnableDesktopNotification.checked = true;
+	// }
+	// else
+	// {
+		// checkboxEnableDesktopNotification.checked = false;
+	// }
 	
 	markClean();
 	hideStuff("saveStatus");
