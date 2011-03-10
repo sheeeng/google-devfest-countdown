@@ -8,6 +8,10 @@ function openInNewTab(url) {
   return 'javascript:chrome.tabs.create({url: \'' + encodeURI(url) + '\'})';
 }
 
+// translate linkfunction translateLink(text){
+  return '<a href="javascript:chrome.tabs.create({url: \'http://translate.google.com/#auto|en|' + text + '\'})">' + '<i>Translate...</i>' + '</a>';
+}
+
 // add links to tweet
 function linkify(tweet) {
   // links
