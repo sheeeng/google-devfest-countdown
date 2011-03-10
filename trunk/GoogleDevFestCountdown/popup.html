@@ -7,6 +7,11 @@
 <body style="overflow-x:hidden;">
 <script src="analytics.js"></script>
 <script src="desktop_notifier.js"></script>
+<!-- Google Search APIs let you put Google Search in your web pages with JavaScript. -->
+<!--
+<script src="https://www.google.com/jsapi?key=ABQIAAAAWEfEzGXRKHBikI8-GbBD7xSPYqJZvLIp8zlm1pj1MH2x1G2TExT9gam6ljSs3BAR3XxUyxexU6pEow"></script>
+<script src="https://www.google.com/jsapi?key=ABQIAAAAWEfEzGXRKHBikI8-GbBD7xSQwxM-UmvnmhNIuA6k904n44pghBTBdeMIc_fn8UkE_xNsPkWArKs8dQ"></script>
+-->
 <div id="wrap">
 	<div id="iconbar">
 		<img src="icon48.png" style="
@@ -27,6 +32,7 @@
 		<h3>DevFest on Twitter</h3>
 		<h3> </h3>
 	</div>
+	<!-- <div id="text">Hola Hola, me alegro mucho de verte.</div> -->
 	<ol id="timeline" />
 </div>
 <ol id="template">
@@ -40,11 +46,17 @@
 	  <a></a>
 	  <span></span>
 	</div>
+	<div id="translation" class="text" align="right">
+	  <a></a>
+	  <span></span>
+	</div>
 	<div class="clear"></div>
   </li>
 </ol>
 
 <script language="javascript">
+//google.load("language", "1");
+
 var bg; // background page
 
 // timeline attributes
@@ -59,6 +71,8 @@ onload = setTimeout(init, 0); // workaround for http://crbug.com/24467
 
 // initialize timeline template
 function init() {
+	//google.load("language", "1");
+	//google.setOnLoadCallback(translate);
 	chrome.browserAction.setBadgeText({text: ''});
 	bg = chrome.extension.getBackgroundPage();
 	bg.unreadCount = 0;
@@ -69,8 +83,68 @@ function init() {
 	image = xpath('img', link);
 	author = xpath('//div[@class="text"]/a', template);
 	content = xpath('//div[@class="text"]/span', template);
+	translated = xpath('//div[@id="translation"]/span', template);
 update();
+
 }
+
+/*
+function translate() {
+  google.load("language", "1");
+  console.log("Enter function translate().");
+  //var content = document.getElementById('content');
+  // Setting the text in the div.
+  //content.innerHTML = '<div id="text">Hola, me alegro mucho de verte.<\/div><div id="translation"/>';
+  //content.innerHTML = '<div id="translation"/>';
+
+  // Grabbing the text to translate
+  //var text = document.getElementById("text").innerHTML;
+  var text = 'Hola, me alegro mucho de verte!';
+
+  // Translate from Spanish to English, and have the callback of the request
+  // put the resulting translation in the "translation" div.
+  // Note: by putting in an empty string for the source language ('es') then the translation
+  // will auto-detect the source language.
+  google.language.translate(text, '', 'en', function(result) {
+	var translated = document.getElementById("translation");
+	//var translated = '';
+	if (result.translation) {
+	console.log('result.translation = ' + result.translation);
+	translated.innerHTML = result.translation;
+	console.log('translated.innerHTML = ' + translated.innerHTML);
+	}
+  });
+  console.log("Exit function translate().");
+}
+
+function translate(tweettext) {
+  google.load("language", "1");
+  console.log("Enter function translate(tweettext).");
+  
+  console.log(tweettext);
+  var translatedtweet = '';
+  
+  // Translate from Spanish to English, and have the callback of the request
+  // put the resulting translation in the "translation" div.
+  // Note: by putting in an empty string for the source language ('es') then the translation
+  // will auto-detect the source language.
+  google.language.translate(tweettext, '', 'en', function(result) {
+	//var translated = document.getElementById("translation");
+	//var translated = '';
+	
+	if (!result.error) {
+	console.log('result.translation = ' + result.translation);
+	translatedtweet = result.translation;
+	console.log(translatedtweet);
+	//translated.innerHTML = result.translation;
+	//console.log('translated.innerHTML = ' + translated.innerHTML);
+	}
+  });
+
+  console.log("Exit function translate(tweettext).");
+  return translatedtweet;
+}
+*/
 
 // update display
 function update() {
@@ -113,13 +187,14 @@ function update() {
 		// text
 		author.href = openInNewTab(user_url);
 		author.innerHTML = bg.tweets[i].from_user;
-		content.innerHTML = linkify(bg.tweets[i].text);
+		content.innerHTML = linkify(bg.tweets[i].text);
+		//tranlate link
+		translated.innerHTML = translateLink(bg.tweets[i].text);
 
 		// copy node and update
 		item = template.cloneNode(true);
 		timeline.appendChild(item);
-	}
-
+	}
 	if(i > 0)
 	{
 		showStuff('title');
