@@ -18,49 +18,37 @@ var cityNameArray;
 var cityDateArray;
 
 cityNameArray = new Array();
-cityNameArray['sydney_wave'] = "Google Sydney, Australia - Wave";
-cityNameArray['sydney_apps'] = "Google Sydney, Australia - Apps";
-cityNameArray['sydney_chrome'] = "Google Sydney, Australia - Chrome";
-cityNameArray['sydney_social'] = "Google Sydney, Australia - Social";
-cityNameArray['sydney_geo'] = "Google Sydney, Australia - Geo";
-cityNameArray['israel'] = "Airport City, Israel - Chrome";
+cityNameArray['saint_petersburg'] = "St. Petersburg, Russia";
+cityNameArray['mexico_city'] = "Mexico City, Mexico";
+cityNameArray['bangalore'] = "Bangalore, India";
+cityNameArray['hyderabad'] = "Hyderabad, India";
 cityNameArray['manila'] = "Manila, Philippines";
-cityNameArray['singapore'] = "Singapore, Singapore";
+cityNameArray['chiang_mai'] = "Chiang Mai, Thailand";
 cityNameArray['kuala_lumpur'] = "Kuala Lumpur, Malaysia";
-
-cityNameArray['taipei'] = "Taipei, Taiwan";
-cityNameArray['hong_kong'] = "Hong Kong";
+cityNameArray['singapore'] = "Singapore, Singapore";
 cityNameArray['jakarta'] = "Jakarta, Indonesia";
-cityNameArray['bangkok'] = "Bangkok, Thailand";
-
-cityNameArray['madrid'] = "Madrid, Spain";
-cityNameArray['buenos_aires'] = "Buenos Aires, Argentina";
+cityNameArray['paris'] = "Paris, France";
+cityNameArray['barcelona'] = "Barcelona, Spain";
 
 cityDateArray = new Array();
-cityDateArray['sydney_wave'] = new Date("June 28, 2010 00:10:00");
-cityDateArray['sydney_apps'] = new Date("June 29, 2010 00:10:00");
-cityDateArray['sydney_chrome'] = new Date("June 30, 2010 00:10:00");
-cityDateArray['sydney_social'] = new Date("July 1,2010 00:10:00");
-cityDateArray['sydney_geo'] = new Date("July 2, 2010 00:10:00");
-cityDateArray['israel'] = new Date("June 29, 2010 00:09:00");
-cityDateArray['manila'] = new Date("July 6, 2010 00:08:30");
-cityDateArray['singapore'] = new Date("July 9, 2010 00:08:30");
-cityDateArray['kuala_lumpur'] = new Date("July 16, 2010 00:08:30");
-
-cityDateArray['taipei'] = new Date("October 1, 2010 00:08:00");
-cityDateArray['hong_kong'] = new Date("October 5, 2010 00:08:30");
-cityDateArray['jakarta'] = new Date("October 8, 2010 00:08:00");
-cityDateArray['bangkok'] = new Date("October 10, 2010 00:08:00");
-
-cityDateArray['madrid'] = new Date("September 23, 2010 00:08:30");
-cityDateArray['buenos_aires'] = new Date("November 2, 2010 00:08:30");
+cityDateArray['saint_petersburg'] = new Date("May 25, 2011 00:10:00");
+cityDateArray['mexico_city'] = new Date("August 9, 2011 00:10:00");
+cityDateArray['bangalore'] = new Date("September 15, 2011 00:08:30");
+cityDateArray['hyderabad'] = new Date("September 17, 2011 00:08:30");
+cityDateArray['manila'] = new Date("September 19, 2011 00:08:30");
+cityDateArray['chiang_mai'] = new Date("September 24, 2011 00:08:30");
+cityDateArray['kuala_lumpur'] = new Date("September 29, 2011 00:08:30");
+cityDateArray['singapore'] = new Date("November 12, 2011 00:08:30");
+cityDateArray['jakarta'] = new Date("November 16, 2011 00:08:30");
+cityDateArray['paris'] = new Date("October 20, 2011 00:08:30");
+cityDateArray['barcelona'] = new Date("November 8, 2011 00:08:30");
 
 function init()
 {
 	saveButton = document.getElementById("buttonSave");
 	saveStatus = document.getElementById("saveStatus");
 	defaultCity = "kuala_lumpur";
-	defaultCityDate = new Date("July 16,2010 00:08:30");
+	defaultCityDate = new Date("September 29, 2011 00:08:30");
 }
 
 function loadOptions()
@@ -69,21 +57,17 @@ function loadOptions()
 	var favCity = localStorage["favCity"];
 	var favCityDate = localStorage["favCityDate"];
 
-	if (favCity == undefined || (favCity != "sydney_wave"
-		&& favCity != "sydney_apps"
-		&& favCity != "sydney_chrome"
-		&& favCity != "sydney_social"
-		&& favCity != "sydney_geo"
-		&& favCity != "israel"
-		&& favCity != "manila" 
-		&& favCity != "singapore" 
+	if (favCity == undefined || (favCity != "saint_petersburg"
+		&& favCity != "mexico_city"
+		&& favCity != "bangalore"
+		&& favCity != "hyderabad"
+		&& favCity != "manila"
+		&& favCity != "chiang_mai"
 		&& favCity != "kuala_lumpur"
-		&& favCity != "taipei"
-		&& favCity != "hong_kong"
+		&& favCity != "singapore"
 		&& favCity != "jakarta"
-		&& favCity != "bangkok"
-		&& favCity != "madrid"
-		&& favCity != "buenos_aires"
+		&& favCity != "paris"
+		&& favCity != "barcelona"
 		)
 	)
 	{
