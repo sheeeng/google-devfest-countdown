@@ -24,23 +24,19 @@
 		<p>Going to which Google DevFest event?<p>
 		Select City:
 		<select id="cityComboBox" onchange="update_map(); return markDirty();">
-			<option value="sydney_wave">Google Sydney, Australia - Wave</option>
-			<option value="sydney_apps">Google Sydney, Australia - Apps</option>
-			<option value="sydney_chrome">Google Sydney, Australia - Chrome</option>
-			<option value="sydney_social">Google Sydney, Australia - Social</option>
-			<option value="sydney_geo">Google Sydney, Australia - Geo</option>
-			<option value="israel">Airport City, Israel - Chrome</option>
-			<option value="manila">Manila, Philippines - Chrome/HTML5, Maps, Apps, Social</option>
-			<option value="singapore">Singapore, Singapore - Chrome/HTML5, Maps, Apps, Social</option>
-			<option value="kuala_lumpur">Kuala Lumpur, Malaysia - Chrome/HTML5, Maps, Apps, Social</option>
+			<option value="saint_petersburg">St. Petersburg, Russia</option>
+			<option value="mexico_city">Mexico City, Mexico</option>
+			<option value="bangalore">Bangalore, India</option>
+			<option value="hyderabad">Hyderabad, India</option>
+			<option value="manila">Manila, Philippines</option>
 			
-			<option value="taipei">Taipei, Taiwan - Android, Chrome/HTML5, Social</option>
-			<option value="hong_kong">Hong Kong - Android, Chrome/HTML5, Social</option>
-			<option value="jakarta">Jakarta, Indonesia - Android, Chrome/HTML5, Social</option>
-			<option value="bangkok">Bangkok, Thailand - Android, Chrome/HTML5, Social</option>
+			<option value="chiang_mai">Chiang Mai, Thailand</option>
+			<option value="kuala_lumpur">Kuala Lumpur, Malaysia</option>
+			<option value="singapore">Singapore, Singapore</option>
+			<option value="jakarta">Jakarta, Indonesia</option>
 			
-			<option value="madrid">Madrid, Spain - Chrome, App Engine, GWT, Android</option>
-			<option value="buenos_aires">Buenos Aires, Argentina - Chrome, App Engine, GWT, Android, Maps, Wave, Social, Enterprise</option>
+			<option value="paris">Paris, France</option>
+			<option value="barcelona">Barcelona, Spain</option>
 		</select>
 		<div id="map_canvas"></div>
 		<div id="footer">
@@ -76,127 +72,111 @@
 			var select = document.getElementById("cityComboBox");
 			var cityNameIndex = select.children[select.selectedIndex].value;
 			localStorage["favCity"] = cityNameIndex;
-			if(cityNameIndex == "sydney_wave"
-			|| cityNameIndex == "sydney_apps"
-			|| cityNameIndex == "sydney_chrome"
-			|| cityNameIndex == "sydney_social"
-			|| cityNameIndex == "sydney_geo")
+			if(cityNameIndex == "saint_petersburg")
 			{
-				moveToSydney();
+				moveToSaintPetersburg();
 			}
-			else if(cityNameIndex == "israel")
+			else if(cityNameIndex == "mexico_city")
 			{
-				moveToIsrael();
+				moveToMexicoCity();
+			}
+			else if(cityNameIndex == "bangalore")
+			{
+				moveToBangalore();
+			}
+			else if(cityNameIndex == "hyderabad")
+			{
+				moveToHyderabad();
 			}
 			else if(cityNameIndex == "manila")
 			{
 				moveToManila();
 			}
-			else if(cityNameIndex == "singapore")
+			else if(cityNameIndex == "chiang_mai")
 			{
-				moveToSingapore();
+				moveToChiangMai();
 			}
 			else if(cityNameIndex == "kuala_lumpur")
 			{
 				moveToKualaLumpur();
 			}
-			else if(cityNameIndex == "taipei")
+			else if(cityNameIndex == "singapore")
 			{
-				moveToTaipei();
-			}
-			else if(cityNameIndex == "hong_kong")
-			{
-				moveToHongKong();
+				moveToSingapore();
 			}
 			else if(cityNameIndex == "jakarta")
 			{
 				moveToJakarta();
 			}
-			else if(cityNameIndex == "bangkok")
+			else if(cityNameIndex == "paris")
 			{
-				moveToBangkok();
+				moveToParis();
 			}
-			else if(cityNameIndex == "madrid")
+			else if(cityNameIndex == "barcelona")
 			{
-				moveToMadrid();
-			}
-			else if(cityNameIndex == "buenos_aires")
-			{
-				moveToBuenosAires();
+				moveToBarcelona();
 			}
 			else
 			{
 				moveToKualaLumpur();
 			}
 		}
-		
-		function moveToSydney() {
-			// Google Sydney Office, Google Australia Pty Ltd., Level 5, 48 Pirrama Road, Pyrmont, NSW 2009, Australia.
-			var latlng = new google.maps.LatLng(-33.866976934111065, 151.1958646774292);
+
+		function moveToSaintPetersburg() {
+			var latlng = new google.maps.LatLng(59.93904168758779, 30.31578540802002);
 			map.setCenter(latlng);
 		}
-		
-		function moveToIsrael() {
-			// Avenue Convention and Events Center, HaSharon St., Airport City, Israel.
-			var latlng = new google.maps.LatLng(32.061508, 34.778401);
+
+		function moveToMexicoCity() {
+			var latlng = new google.maps.LatLng(19.42705591358924, -99.12757873535156);
 			map.setCenter(latlng);
 		}
-		
+
+		function moveToBangalore() {
+			var latlng = new google.maps.LatLng(12.971605607868163, 77.59456872940063);
+			map.setCenter(latlng);
+		}
+
+		function moveToHyderabad() {
+			var latlng = new google.maps.LatLng(17.385043724490032, 78.4866714477539);
+			map.setCenter(latlng);
+		}
+
 		function moveToManila() {
-			// TechnoHub, Commonwealth Avenue, UP Campus, Quezon City, Manila, Philippines.
-			var latlng = new google.maps.LatLng(14.657229308041812, 121.05583906173706);
+			var latlng = new google.maps.LatLng(14.599510657898618, 120.98422408103943);
 			map.setCenter(latlng);
 		}
-		
-		function moveToSingapore() {
-			// Genexis Theatre & Lounge, Level 5, Connexis Tower, Fusionopolis, 1 Fusionopolis Way, Singapore 138632.
-			var latlng = new google.maps.LatLng(1.299362, 103.788685);
+
+		function moveToChiangMai() {
+			var latlng = new google.maps.LatLng(18.768656763281502, 98.96613121032715);
 			map.setCenter(latlng);
 		}
-		
+
 		function moveToKualaLumpur() {
-			// Technology Park Malaysia, Ground Floor, Enterprise 4, Bukit Jalil, 57000 Kuala Lumpur, Malaysia
-			var latlng = new google.maps.LatLng(3.0455328234928123, 101.68960332870483);
+			var latlng = new google.maps.LatLng(3.152171481778087, 101.68670654296875);
 			map.setCenter(latlng);
 		}
-		
-		
-		function moveToTaipei() {
-			// NTUH International Convention Center, No. 2, Xuzhou Road, Zhongzheng District 101, Taipei City, Taiwan.
-			var latlng = new google.maps.LatLng(25.041087669712546, 121.52097702026367);
+
+		function moveToSingapore() {
+			var latlng = new google.maps.LatLng(1.2894328647643984, 103.84998321533203);
 			map.setCenter(latlng);
 		}
-		
-		function moveToHongKong() {
-			// Cliftons, Level 33, 9 Queen's Road Central, Hong Kong Island, Hong Kong.
-			var latlng = new google.maps.LatLng(22.280206330286457, 114.16011035442352);
-			map.setCenter(latlng);
-		}
-		
+
 		function moveToJakarta() {
-			// Universitas Bina Nusantara Pascasarjana (BINUS University), Jalan Hang Lekir 1, Jakarta 12220, Indonesia.
-			var latlng = new google.maps.LatLng(-6.228995148090674, 106.79741442203522);
+			var latlng = new google.maps.LatLng(-6.211551441519991, 106.8451738357544);
 			map.setCenter(latlng);
 		}
-		
-		function moveToBangkok() {
-			// Kasetsart University, 50 Phahon Yothin Road, Chatuchak, Lat Yao, Bangkok 10900, Thailand.
-			var latlng = new google.maps.LatLng(13.853601399898182, 100.57292461395264);
+
+		function moveToParis() {
+			var latlng = new google.maps.LatLng(48.85661169533619, 2.3522114753723145);
 			map.setCenter(latlng);
 		}
-		
-		
-		function moveToMadrid() {
-			// Facultad De Informatica - Universidad Complutense, Calle del Profesor José García Santesmases, S/N, 28040 Madrid, Spain.
-			var latlng = new google.maps.LatLng(40.41669813586243, -3.7003326416015625);
+
+		function moveToBarcelona() {
+			var latlng = new google.maps.LatLng(41.38791756889401, 2.169928550720215);
 			map.setCenter(latlng);
 		}
-		
-		function moveToBuenosAires() {
-			// Buenos Aires, Argentina
-			var latlng = new google.maps.LatLng(-34.608415850547374, -58.37315082550049);
-			map.setCenter(latlng);
-		}
+
 		</script>
 		<div id="saveStatus">Options saved. Options will take effect automatically within fifteen seconds.</div>
 	</body>
