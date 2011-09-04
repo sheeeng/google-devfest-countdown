@@ -13,14 +13,14 @@ function getNotifierEnabled()
 
 function updateTime()
 {
-	var defaultCountdownDate = new Date("July 16,2010 00:08:30");
+	var defaultCountdownDate = new Date("September 29, 2011 00:08:30");
 	var defaultCity = "kuala_lumpur";
 
 	var favCity = localStorage["favCity"];
 	var favCityDate = new Date(localStorage["favCityDate"]);
 	if(favCityDate.toString() == "Invalid Date")
 	{
-		favCityDate = new Date("July 16,2010 00:08:30");
+		favCityDate = new Date("September 29, 2011 00:08:30");
 	}
 
 	var today_value = new Date();
