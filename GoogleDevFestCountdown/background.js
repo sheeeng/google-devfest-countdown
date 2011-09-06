@@ -51,7 +51,7 @@ function updateClock()
 	//showCounter();
 	animateFlip();
 	showBadgeTextAnimator(localStorage["countdownText"]);
-	setTimeout(updateClock,15000);
+	setTimeout(updateClock,60000);
 }
 
 function showBadgeTextAnimator(displayText)
