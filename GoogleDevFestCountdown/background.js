@@ -31,7 +31,7 @@ function updateTime()
 
 	if((favCityDate - today_value) > 0)
 	{
-		countdownText = "Google DevFest coming in " + days_value + " days, " + hours_value + " hours, " + minutes_value + " minutes, " + seconds_value + " seconds.";
+		countdownText = "Google DevFest coming in " + days_value + " day(s), " + hours_value + " hour(s), " + minutes_value + " minute(s)."; //, " + seconds_value + " seconds.";
 	}
 	else
 	{
